@@ -70,3 +70,37 @@ PATCH :url/publishers/:id
 :id = 3
 DELETE :url/publishers/:id
 :headers
+
+### Books
+
+# GET /books
+GET :url/books
+:headers
+
+# GET /books/:id
+:id = 1
+GET :url/books/:id
+:headers
+
+# POST /books
+POST :url/books
+:headers
+{
+"title": "book 1",
+"description": "dkdlak kldsalk jfdlkjdlk jkldjld k",
+"isbn": "isbn",
+"authorId": 4
+}
+
+# PATCH /books/id
+:id = 1
+PATCH :url/books/:id
+:headers
+{
+"name": "new name"
+}
+
+# DELETE /books/id
+:id = 3
+DELETE :url/books/:id
+:headers

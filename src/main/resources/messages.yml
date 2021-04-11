@@ -10,6 +10,10 @@ errors:
     not_found: Publisher with provided id {0} not found.
     name:
       must_be_unique: Name must be unique.
+  book:
+    not_found: Book with provided id {0} not found.
+    isbn:
+      must_be_unique: Isbn must be unique.
   something_went_wrong: Something went wrong.
 
 

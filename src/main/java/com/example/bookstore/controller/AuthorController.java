@@ -1,8 +1,8 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.dto.AuthorDto;
-import com.example.bookstore.error.ApiException;
-import com.example.bookstore.error.AuthorNotFoundException;
+import com.example.bookstore.error.exception.ApiException;
+import com.example.bookstore.error.exception.AuthorNotFoundException;
 import com.example.bookstore.mapper.AuthorMapper;
 import com.example.bookstore.model.Author;
 import com.example.bookstore.service.AuthorService;

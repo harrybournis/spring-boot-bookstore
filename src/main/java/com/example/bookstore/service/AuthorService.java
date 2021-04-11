@@ -1,6 +1,6 @@
 package com.example.bookstore.service;
 
-import com.example.bookstore.error.ApiException;
+import com.example.bookstore.error.exception.ApiException;
 import com.example.bookstore.model.Author;
 import com.example.bookstore.repository.AuthorRepository;
 import lombok.Value;

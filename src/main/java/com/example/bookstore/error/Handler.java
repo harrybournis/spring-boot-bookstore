@@ -1,5 +1,6 @@
 package com.example.bookstore.error;
 
+import com.example.bookstore.error.exception.ApiException;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.bookstore.error;
+package com.example.bookstore.error.exception;
 
 import org.springframework.http.HttpStatus;
 
