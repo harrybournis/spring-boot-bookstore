@@ -1,0 +1,72 @@
+:url = http://localhost:8181
+:headers = <<
+Content-Type: application/json
+#
+
+# actuator
+GET :url/actuator/mappings
+
+### Authors
+
+# GET /authors
+GET :url/authors
+:headers
+
+# GET /authors/:id
+:id = 4
+GET :url/authors/:id
+:headers
+
+# POST /authors
+POST :url/authors
+:headers
+{
+"firstName": "first",
+"lastName": "last",
+"email": "dsssimeiaadaldd@gamil.com"
+}
+
+# PATCH /authors/id
+:id = 4
+PATCH :url/authors/:id
+:headers
+{
+"firstName": "firsttt"
+}
+
+# DELETE /authors/id
+:id = 5
+DELETE :url/authors/:id
+:headers
+
+### Publishers
+
+# GET /publishers
+GET :url/publishers
+:headers
+
+# GET /publishers/:id
+:id = 1
+GET :url/publishers/:id
+:headers
+
+# POST /publishers
+POST :url/publishers
+:headers
+{
+"name": "name 4",
+"address": "addressss"
+}
+
+# PATCH /publishers/id
+:id = 1
+PATCH :url/publishers/:id
+:headers
+{
+"name": "new name"
+}
+
+# DELETE /publishers/id
+:id = 3
+DELETE :url/publishers/:id
+:headers

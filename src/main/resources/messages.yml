@@ -1,0 +1,15 @@
+errors:
+  author:
+    not_found: Author with provided id {0} not found.
+    lastName:
+      must_not_be_blank: Last name is required.
+    email:
+      invalid: Email is not a valid email address.
+      must_be_unique: Email must be unique.
+  publisher:
+    not_found: Publisher with provided id {0} not found.
+    name:
+      must_be_unique: Name must be unique.
+  something_went_wrong: Something went wrong.
+
+
