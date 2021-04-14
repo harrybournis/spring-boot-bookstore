@@ -54,6 +54,6 @@ public class PublisherController {
   }
 
   private Publisher findPublisher(Long id) throws PublisherNotFoundException {
-    return publisherService.find(id).orElseThrow(() -> new PublisherNotFoundException(id));
+    return publisherService.find(id);
   }
 }

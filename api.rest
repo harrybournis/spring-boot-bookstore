@@ -88,7 +88,7 @@ POST :url/books
 {
 "title": "book 1",
 "description": "dkdlak kldsalk jfdlkjdlk jkldjld k",
-"isbn": "isbn",
+"isbn": "isbdsddndddd",
 "authorId": 4
 }
 

@@ -44,15 +44,10 @@ public class Book {
   @Column
   private Integer position;
 
-//  @Column(name = "author_id")
-//  private Long authorId;
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
+  @NotNull
   private Author author;
-
-//  @Column(name = "publisher_id")
-//  private Long publisherId;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   @JoinColumn(name = "publisher_id", nullable = true)

@@ -3,6 +3,8 @@ package com.example.bookstore.error;
 import com.example.bookstore.error.exception.ApiException;
 import lombok.AllArgsConstructor;
 import lombok.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
@@ -28,6 +30,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Value
 public class Handler {
+  Logger logger = LoggerFactory.getLogger(Handler.class);
+
   @Autowired
   MessageSource messageSource;
 
@@ -39,8 +43,9 @@ public class Handler {
 
   @ExceptionHandler(ApiException.class)
   protected ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
+    logException(ex);
     List<Error> errors = ex.getErrorCodes().stream().map(code ->
-            new Error( code, translateErrorCode(code, ex.getParameters(), ex.getMessage()))
+            new Error(code, translateErrorCode(code, ex.getParameters(), ex.getMessage()))
     ).collect(Collectors.toList());
 
     return buildResponseEntity(
@@ -54,7 +59,7 @@ public class Handler {
     List<Error> errors = new ArrayList<>();
     for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
       String object = violation.getRootBeanClass().getSimpleName().toLowerCase();
-      String code = object + "." + violation.getPropertyPath() + "." + violation.getMessage();
+      String code = buildErrorCode(object, violation.getPropertyPath().toString(), violation.getMessage());
 
       errors.add(new Error(code, translateErrorCode(code, violation.getMessage())));
     }
@@ -116,5 +121,9 @@ public class Handler {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     return new ResponseEntity<>(errorResponse, headers, status);
+  }
+
+  private void logException(Exception ex) {
+    ex.printStackTrace();
   }
 }

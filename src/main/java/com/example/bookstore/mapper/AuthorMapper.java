@@ -7,16 +7,22 @@ import org.mapstruct.*;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface AuthorMapper {
+public abstract class AuthorMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createdAt", ignore = true)
   @Mapping(target = "updatedAt", ignore = true)
-  Author map(AuthorDto authorDto);
+  public abstract Author map(AuthorDto authorDto);
 
-  AuthorDto map(Author author);
+  public abstract AuthorDto map(Author author);
 
-  List<AuthorDto> map(List<Author> authors);
+  public abstract AuthorDto.WithFullName mapWithFullName(Author author);
+
+  public abstract List<AuthorDto> map(List<Author> authors);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Author updateFromDto(@MappingTarget Author author, AuthorDto authorDto);
+  public abstract Author updateFromDto(@MappingTarget Author author, AuthorDto authorDto);
+
+  private String getFullName(Author author) {
+    return author.getFirstName() + " " + author.getLastName();
+  }
 }

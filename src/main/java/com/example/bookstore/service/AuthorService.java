@@ -1,6 +1,7 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.error.exception.ApiException;
+import com.example.bookstore.error.exception.AuthorNotFoundException;
 import com.example.bookstore.model.Author;
 import com.example.bookstore.repository.AuthorRepository;
 import lombok.Value;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Value
@@ -22,8 +22,8 @@ public class AuthorService {
     return authorRepository.findAll();
   }
 
-  public Optional<Author> find(Long id) {
-    return authorRepository.findById(id);
+  public Author find(Long id) throws AuthorNotFoundException {
+    return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(id));
   }
 
   public Author save(@Valid Author author) throws ApiException {

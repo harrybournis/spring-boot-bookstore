@@ -1,6 +1,7 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.error.exception.ApiException;
+import com.example.bookstore.error.exception.PublisherNotFoundException;
 import com.example.bookstore.model.Publisher;
 import com.example.bookstore.repository.PublisherRepository;
 import lombok.Value;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Value
@@ -22,8 +22,8 @@ public class PublisherService {
     return publisherRepository.findAll();
   }
 
-  public Optional<Publisher> find(Long id) {
-    return publisherRepository.findById(id);
+  public Publisher find(Long id) throws PublisherNotFoundException {
+    return publisherRepository.findById(id).orElseThrow(() -> new PublisherNotFoundException(id));
   }
 
   public Publisher save(@Valid Publisher publisher) throws ApiException {

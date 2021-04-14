@@ -14,6 +14,8 @@ errors:
     not_found: Book with provided id {0} not found.
     isbn:
       must_be_unique: Isbn must be unique.
+    author:
+      must_not_be_null: authorId is required.
   something_went_wrong: Something went wrong.
 
 

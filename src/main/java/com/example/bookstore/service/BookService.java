@@ -1,6 +1,8 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.dto.BookDto;
 import com.example.bookstore.error.exception.ApiException;
+import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.BookRepository;
 import lombok.Value;
@@ -15,10 +17,33 @@ import java.util.List;
 @Value
 public class BookService {
   @Autowired
+  AuthorService authorService;
+
+  @Autowired
+  PublisherService publisherService;
+
+  @Autowired
   BookRepository bookRepository;
+
+  @Autowired
+  BookMapper bookMapper;
 
   public List<Book> getAll() {
     return bookRepository.findAll();
+  }
+
+  public Book create(BookDto bookDto) throws ApiException {
+    Book book = bookMapper.map(bookDto);
+
+    if (bookDto.getAuthorId() != null) {
+      book.setAuthor(authorService.find(bookDto.getAuthorId()));
+    }
+
+    if (bookDto.getPublisherId() != null) {
+      book.setPublisher(publisherService.find(bookDto.getPublisherId()));
+    }
+
+    return save(book);
   }
 
   public Book save(@Valid Book book) throws ApiException {

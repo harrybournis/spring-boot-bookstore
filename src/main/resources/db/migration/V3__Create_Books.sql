@@ -1,7 +1,7 @@
 CREATE TABLE books(
   id BIGSERIAL primary key,
-  author_id BIGSERIAL NOT NULL REFERENCES authors ON DELETE CASCADE,
-  publisher_id BIGSERIAL REFERENCES publishers ON DELETE CASCADE,
+  author_id BIGINT NOT NULL REFERENCES authors ON DELETE CASCADE,
+  publisher_id BIGINT REFERENCES authors ON DELETE CASCADE,
   isbn VARCHAR(20) NOT NULL UNIQUE,
   title VARCHAR(100) NOT NULL,
   description TEXT,
@@ -11,5 +11,5 @@ CREATE TABLE books(
   updated_at TIMESTAMP NOT NULL
 );
 
-CREATE UNIQUE INDEX idx_author_id_on_books ON books(author_id);
-CREATE UNIQUE INDEX idx_publisher_id_on_books ON books(publisher_id);
+CREATE INDEX index_author_id_on_books ON books(author_id);
+CREATE INDEX index_publisher_id_on_books ON books(publisher_id);

@@ -1,7 +1,6 @@
 package com.example.bookstore.dto;
 
-import com.example.bookstore.model.Author;
-import com.example.bookstore.model.Publisher;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -14,6 +13,8 @@ public class BookDto {
   String position;
   Long authorId;
   Long publisherId;
-  Author author;
-  Publisher publisher;
+  @JsonProperty("author")
+  AuthorDto authorDto;
+  @JsonProperty("publisher")
+  PublisherDto publisherDto;
 }

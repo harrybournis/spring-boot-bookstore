@@ -54,6 +54,6 @@ public class AuthorController {
   }
 
   private Author findAuthor(Long id) throws AuthorNotFoundException {
-    return authorService.find(id).orElseThrow(() -> new AuthorNotFoundException(id));
+    return authorService.find(id);
   }
 }

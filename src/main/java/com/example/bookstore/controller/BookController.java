@@ -28,8 +28,7 @@ public class BookController {
 
   @PostMapping
   public BookDto create(@RequestBody BookDto bookDto) throws ApiException {
-    Book book = bookMapper.map(bookDto);
-    book = bookService.save(book);
+    Book book = bookService.create(bookDto);
     return bookMapper.map(book);
   }
 }
