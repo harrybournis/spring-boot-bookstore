@@ -1,17 +1,31 @@
 package com.example.bookstore.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
 public class AuthorDto {
   Long id;
-  String firstName;
-  String lastName;
   String email;
 
-  @JsonIgnoreProperties({"firstName", "lastName"})
-  public static class WithFullName extends AuthorDto {
+  @Data
+  public static class Request extends AuthorDto {
+    String firstName;
+    String lastName;
+  }
+
+  @Data
+  public static class Response extends AuthorDto {
+    String firstName;
+    String lastName;
+  }
+
+  @Data
+  public static class ResponseNested extends AuthorDto {
+    @JsonIgnore
+    String firstName;
+    @JsonIgnore
+    String lastName;
     String fullName;
 
     public String getFullName() {

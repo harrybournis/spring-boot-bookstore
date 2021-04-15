@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Value
-public class PublisherService {
+public class PublisherService implements ResourceService<Publisher> {
   @Autowired
   PublisherRepository publisherRepository;
 

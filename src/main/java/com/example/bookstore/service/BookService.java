@@ -2,8 +2,10 @@ package com.example.bookstore.service;
 
 import com.example.bookstore.dto.BookDto;
 import com.example.bookstore.error.exception.ApiException;
+import com.example.bookstore.error.exception.BookNotFoundException;
 import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
+import com.example.bookstore.model.Publisher;
 import com.example.bookstore.repository.BookRepository;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import java.util.List;
 
 @Service
 @Value
-public class BookService {
+public class BookService implements ResourceService<Book> {
   @Autowired
   AuthorService authorService;
 
@@ -29,10 +31,14 @@ public class BookService {
   BookMapper bookMapper;
 
   public List<Book> getAll() {
-    return bookRepository.findAll();
+    return bookRepository.findAllEagerLoad();
   }
 
-  public Book create(BookDto bookDto) throws ApiException {
+  public Book find(Long id) throws BookNotFoundException {
+    return bookRepository.findByIdEagerLoad(id).orElseThrow(() -> new BookNotFoundException(id));
+  }
+
+  public Book create(BookDto.Request bookDto) throws ApiException {
     Book book = bookMapper.map(bookDto);
 
     if (bookDto.getAuthorId() != null) {
@@ -40,7 +46,8 @@ public class BookService {
     }
 
     if (bookDto.getPublisherId() != null) {
-      book.setPublisher(publisherService.find(bookDto.getPublisherId()));
+      Publisher publisher = publisherService.find(bookDto.getPublisherId());
+      book.setPublisher(publisher);
     }
 
     return save(book);
@@ -49,6 +56,11 @@ public class BookService {
   public Book save(@Valid Book book) throws ApiException {
     validateIsbnUniqueness(book.getIsbn(), book.getId());
     return bookRepository.save(book);
+  }
+
+  @Override
+  public void delete(Book book) {
+    bookRepository.delete(book);
   }
 
   private void validateIsbnUniqueness(String isbn, Long id) throws ApiException {

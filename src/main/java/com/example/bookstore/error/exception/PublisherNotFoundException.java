@@ -1,9 +1,7 @@
 package com.example.bookstore.error.exception;
 
-import org.springframework.http.HttpStatus;
-
-public class PublisherNotFoundException extends ApiException {
+public class PublisherNotFoundException extends ResourceNotFoundException {
   public PublisherNotFoundException(Long id) {
-    super("publisher.not_found", HttpStatus.BAD_REQUEST, new Object[] {id});
+    super("publisher.not_found", new Object[] {id});
   }
 }

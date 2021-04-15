@@ -24,24 +24,24 @@ public class AuthorController {
   AuthorMapper authorMapper;
 
   @GetMapping
-  public List<AuthorDto> getAll() {
+  public List<AuthorDto.Response> getAll() {
     return authorMapper.map(authorService.getAll());
   }
 
   @GetMapping("/{id}")
-  public AuthorDto find(@PathVariable Long id) throws AuthorNotFoundException {
+  public AuthorDto.Response find(@PathVariable Long id) throws AuthorNotFoundException {
     Author author = findAuthor(id);
     return authorMapper.map(author);
   }
 
   @PostMapping
-  public AuthorDto create(@RequestBody AuthorDto authorDto) throws ApiException {
+  public AuthorDto.Response create(@RequestBody AuthorDto.Request authorDto) throws ApiException {
     Author author = authorService.save(authorMapper.map(authorDto));
     return authorMapper.map(author);
   }
 
   @PatchMapping("/{id}")
-  public AuthorDto update(@PathVariable Long id, @RequestBody AuthorDto newAuthor) throws ApiException {
+  public AuthorDto.Response update(@PathVariable Long id, @RequestBody AuthorDto.Request newAuthor) throws ApiException {
     Author author = findAuthor(id);
     author = authorService.save(authorMapper.updateFromDto(author, newAuthor));
     return authorMapper.map(author);

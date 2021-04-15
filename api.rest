@@ -23,7 +23,7 @@ POST :url/authors
 {
 "firstName": "first",
 "lastName": "last",
-"email": "dsssimeiaadaldd@gamil.com"
+"email": "dsdssssimeiaadaldd@gamil.com"
 }
 
 # PATCH /authors/id
@@ -86,10 +86,11 @@ GET :url/books/:id
 POST :url/books
 :headers
 {
-"title": "book 1",
+"title": "book 193933",
 "description": "dkdlak kldsalk jfdlkjdlk jkldjld k",
-"isbn": "isbdsddndddd",
-"authorId": 4
+"isbn": "illdddddidndddd",
+"authorId": 4,
+"publisherId": 1
 }
 
 # PATCH /books/id
@@ -97,7 +98,7 @@ POST :url/books
 PATCH :url/books/:id
 :headers
 {
-"name": "new name"
+"title": "update titleee 2"
 }
 
 # DELETE /books/id

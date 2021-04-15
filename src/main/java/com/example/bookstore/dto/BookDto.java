@@ -1,6 +1,5 @@
 package com.example.bookstore.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -11,10 +10,29 @@ public class BookDto {
   String isbn;
   Boolean visible;
   String position;
-  Long authorId;
-  Long publisherId;
-  @JsonProperty("author")
-  AuthorDto authorDto;
-  @JsonProperty("publisher")
-  PublisherDto publisherDto;
+
+  @Data
+  public static class Request extends BookDto {
+    Long authorId;
+    Long publisherId;
+  }
+
+  @Data
+  public static class Response extends BookDto {
+    AuthorDto.ResponseNested author;
+    PublisherDto publisher;
+  }
+
+  @Data
+  public static class ResponseList extends Response {
+    private static int descriptionLength = 100;
+
+    @Override
+    public String getDescription() {
+      if (description == null || description.length() < descriptionLength)
+        return description;
+
+      return description.substring(0, descriptionLength) + "...";
+    }
+  }
 }

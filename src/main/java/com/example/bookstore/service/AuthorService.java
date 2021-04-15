@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Value
-public class AuthorService {
+public class AuthorService implements ResourceService<Author> {
   @Autowired
   AuthorRepository authorRepository;
 

@@ -16,6 +16,7 @@ errors:
       must_be_unique: Isbn must be unique.
     author:
       must_not_be_null: authorId is required.
+  invalid_boolean_value: Invalid value passed for Boolean field.
   something_went_wrong: Something went wrong.
 
 
