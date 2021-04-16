@@ -40,6 +40,9 @@ public class Author {
   @Email(message = "invalid")
   private String email;
 
+  @Column(name = "date_of_birth")
+  private Date dateOfBirth;
+
   @Column(name = "created_at", nullable = false, updatable = false)
   @CreationTimestamp
   private Date createdAt;

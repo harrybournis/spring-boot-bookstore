@@ -7,6 +7,7 @@ CREATE TABLE books(
   description TEXT,
   visible BOOLEAN NOT NULL DEFAULT true,
   position INT,
+  release_date DATE,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL
 );

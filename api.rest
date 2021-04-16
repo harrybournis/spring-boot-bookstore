@@ -1,10 +1,11 @@
-:url = http://localhost:8181
+:domain = http://localhost:8181
+:url = :domain/api/v1
 :headers = <<
 Content-Type: application/json
 #
 
 # actuator
-GET :url/actuator/mappings
+GET :domain/actuator/mappings
 
 ### Authors
 
@@ -23,7 +24,8 @@ POST :url/authors
 {
 "firstName": "first",
 "lastName": "last",
-"email": "dsdssssimeiaadaldd@gamil.com"
+"email": "dsdssssimeidaadaldd@gamil.com",
+"dateOfBirth": "1956-02-24"
 }
 
 # PATCH /authors/id
@@ -43,7 +45,8 @@ DELETE :url/authors/:id
 
 # GET /publishers
 GET :url/publishers
-:headers
+:heade
+rs
 
 # GET /publishers/:id
 :id = 1
@@ -88,8 +91,8 @@ POST :url/books
 {
 "title": "book 193933",
 "description": "dkdlak kldsalk jfdlkjdlk jkldjld k",
-"isbn": "illdddddidndddd",
-"authorId": 4,
+"isbn": "illsdddddidndddd",
+"authorId": 1,
 "publisherId": 1
 }
 

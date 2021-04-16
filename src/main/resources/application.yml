@@ -12,7 +12,16 @@ management:
     web:
       exposure:
         include: "*"
+
 spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      time: iso
+      date-time: iso
   profiles:
     active: dev
   datasource:

@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -54,8 +55,22 @@ public class Handler {
     );
   }
 
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  protected ResponseEntity<ErrorResponse> handledd(HttpMessageNotReadableException ex) {
+    logException(ex);
+    String message = ex.getCause().getMessage();
+    String code = "json_parse_failed";
+    Error error = new Error(code, translateErrorCode(code, new Object[] { message }, message));
+
+    return buildResponseEntity(
+            HttpStatus.BAD_REQUEST,
+            new ErrorResponse(clock.instant(), List.of(error), ex.getMessage())
+    );
+  }
+
   @ExceptionHandler(ConstraintViolationException.class)
   protected ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException ex) {
+    logException(ex);
     List<Error> errors = new ArrayList<>();
     for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
       String object = violation.getRootBeanClass().getSimpleName().toLowerCase();
@@ -63,6 +78,7 @@ public class Handler {
 
       errors.add(new Error(code, translateErrorCode(code, violation.getMessage())));
     }
+
     return buildResponseEntity(
             HttpStatus.BAD_REQUEST,
             new ErrorResponse(clock.instant(), errors, ex.getMessage())
@@ -71,6 +87,7 @@ public class Handler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   protected ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    logException(ex);
     List<Error> errors = ex.getAllErrors().stream().map((e) -> {
       FieldError error = (FieldError) e;
       String defaultMessage = error.getDefaultMessage();
@@ -86,6 +103,8 @@ public class Handler {
 
   @ExceptionHandler({Exception.class, DataIntegrityViolationException.class})
   protected ResponseEntity<ErrorResponse> handleGenericError(Exception ex) {
+    logException(ex);
+
     return buildResponseEntity(
             HttpStatus.INTERNAL_SERVER_ERROR,
             new ErrorResponse(clock.instant(), List.of(genericError(ex.getMessage())), ex.getMessage())
@@ -94,11 +113,6 @@ public class Handler {
 
   private String buildErrorCode(String objectName, String field, String message) {
     return objectName + "." + field + "." + message.replace(" ", "_");
-  }
-
-  private Error genericError() {
-    String code = "something_went_wrong";
-    return new Error(code, translateErrorCode(code, null));
   }
 
   private Error genericError(String message) {

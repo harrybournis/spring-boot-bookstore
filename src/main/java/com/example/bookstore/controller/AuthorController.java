@@ -1,5 +1,6 @@
 package com.example.bookstore.controller;
 
+import com.example.bookstore.Constants;
 import com.example.bookstore.dto.AuthorDto;
 import com.example.bookstore.error.exception.ApiException;
 import com.example.bookstore.error.exception.AuthorNotFoundException;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("authors")
+@RequestMapping(Constants.URL_PATH_PREFIX + "/authors")
 @Value
 public class AuthorController {
   @Autowired

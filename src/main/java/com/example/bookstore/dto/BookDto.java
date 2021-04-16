@@ -1,6 +1,10 @@
 package com.example.bookstore.dto;
 
+import com.example.bookstore.Constants;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class BookDto {
@@ -9,6 +13,8 @@ public class BookDto {
   String description;
   String isbn;
   Boolean visible;
+  @JsonFormat(pattern = Constants.DATE_FORMAT)
+  Date releaseDate;
   String position;
 
   @Data

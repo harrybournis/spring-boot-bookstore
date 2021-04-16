@@ -1,12 +1,18 @@
 package com.example.bookstore.dto;
 
+import com.example.bookstore.Constants;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class AuthorDto {
   Long id;
   String email;
+  @JsonFormat(pattern = Constants.DATE_FORMAT)
+  Date dateOfBirth;
 
   @Data
   public static class Request extends AuthorDto {

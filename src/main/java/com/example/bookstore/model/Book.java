@@ -44,6 +44,9 @@ public class Book {
   @Column
   private Integer position;
 
+  @Column(name = "release_date")
+  private Date releaseDate;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
   @NotNull

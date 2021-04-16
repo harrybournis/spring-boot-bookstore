@@ -17,6 +17,7 @@ errors:
     author:
       must_not_be_null: authorId is required.
   invalid_boolean_value: Invalid value passed for Boolean field.
+  json_parse_failed: "JSON parsing failed: {0}"
   something_went_wrong: Something went wrong.
 
 
