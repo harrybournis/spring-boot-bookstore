@@ -4,6 +4,7 @@ import com.example.bookstore.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -14,18 +15,21 @@ public class AuthorDto {
   @JsonFormat(pattern = Constants.DATE_FORMAT)
   Date dateOfBirth;
 
+  @EqualsAndHashCode(callSuper = true)
   @Data
   public static class Request extends AuthorDto {
     String firstName;
     String lastName;
   }
 
+  @EqualsAndHashCode(callSuper = true)
   @Data
   public static class Response extends AuthorDto {
     String firstName;
     String lastName;
   }
 
+  @EqualsAndHashCode(callSuper = true)
   @Data
   public static class ResponseNested extends AuthorDto {
     @JsonIgnore

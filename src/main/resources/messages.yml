@@ -14,10 +14,9 @@ errors:
     not_found: Book with provided id {0} not found.
     isbn:
       must_be_unique: Isbn must be unique.
+      invalid_ISBN: "Invalid ISBN. Must be digits in the following formats: XXXXXXXXXX, XXX-XXXXXXXXXX"
     author:
       must_not_be_null: authorId is required.
   invalid_boolean_value: Invalid value passed for Boolean field.
   json_parse_failed: "JSON parsing failed: {0}"
   something_went_wrong: Something went wrong.
-
-

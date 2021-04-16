@@ -31,7 +31,7 @@ public class BookService implements ResourceService<Book> {
   BookMapper bookMapper;
 
   public List<Book> getAll() {
-    return bookRepository.findAllEagerLoad();
+    return bookRepository.allVisiblePublishedSortedByPosition();
   }
 
   public Book find(Long id) throws BookNotFoundException {

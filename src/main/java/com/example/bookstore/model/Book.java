@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -27,6 +28,7 @@ public class Book {
   @Column
   @NotBlank
   @Size(max = 20)
+  @ISBN(type = ISBN.Type.ANY)
   private String isbn;
 
   @Column
@@ -35,6 +37,7 @@ public class Book {
   private String title;
 
   @Column
+  @Size(max = 1000)
   private String description;
 
   @Column

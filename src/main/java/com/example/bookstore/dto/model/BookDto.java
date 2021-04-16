@@ -3,6 +3,7 @@ package com.example.bookstore.dto.model;
 import com.example.bookstore.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -15,20 +16,23 @@ public class BookDto {
   Boolean visible;
   @JsonFormat(pattern = Constants.DATE_FORMAT)
   Date releaseDate;
-  String position;
+  Integer position;
 
+  @EqualsAndHashCode(callSuper = true)
   @Data
   public static class Request extends BookDto {
     Long authorId;
     Long publisherId;
   }
 
+  @EqualsAndHashCode(callSuper = true)
   @Data
   public static class Response extends BookDto {
     AuthorDto.ResponseNested author;
     PublisherDto publisher;
   }
 
+  @EqualsAndHashCode(callSuper = true)
   @Data
   public static class ResponseList extends Response {
     private static int descriptionLength = 100;

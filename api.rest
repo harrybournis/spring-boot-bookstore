@@ -23,8 +23,8 @@ POST :url/authors
 :headers
 {
 "firstName": "first",
-"lastName": "last",
-"email": "dsdssssimeidaadaldd@gamil.com",
+"lastName": "AAAAAAAlast",
+"email": "dsdssssimceidaadaldd@gamil.com",
 "dateOfBirth": "1956-02-24"
 }
 
@@ -89,19 +89,18 @@ GET :url/books/:id
 POST :url/books
 :headers
 {
-"title": "book 193933",
+"title": "Book without publisher",
 "description": "dkdlak kldsalk jfdlkjdlk jkldjld k",
-"isbn": "illsdddddidndddd",
-"authorId": 1,
-"publisherId": 1
+"isbn": "0-7901-7493-6",
+"authorId": 3
 }
 
 # PATCH /books/id
-:id = 1
+:id = 7
 PATCH :url/books/:id
 :headers
 {
-"title": "update titleee 2"
+"position": 2
 }
 
 # DELETE /books/id
