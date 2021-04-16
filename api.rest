@@ -14,7 +14,7 @@ GET :url/authors
 :headers
 
 # GET /authors/:id
-:id = 4
+:id = 2
 GET :url/authors/:id
 :headers
 

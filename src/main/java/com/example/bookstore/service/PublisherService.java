@@ -1,7 +1,7 @@
 package com.example.bookstore.service;
 
-import com.example.bookstore.error.exception.ApiException;
-import com.example.bookstore.error.exception.PublisherNotFoundException;
+import com.example.bookstore.exception.ApiException;
+import com.example.bookstore.exception.PublisherNotFoundException;
 import com.example.bookstore.model.Publisher;
 import com.example.bookstore.repository.PublisherRepository;
 import lombok.Value;

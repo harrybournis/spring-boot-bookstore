@@ -1,6 +1,8 @@
-package com.example.bookstore.error;
+package com.example.bookstore.controller;
 
-import com.example.bookstore.error.exception.ApiException;
+import com.example.bookstore.dto.error.ErrorDto;
+import com.example.bookstore.dto.error.ErrorResponseDto;
+import com.example.bookstore.exception.ApiException;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.slf4j.Logger;
@@ -30,8 +32,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 @AllArgsConstructor
 @Value
-public class Handler {
-  Logger logger = LoggerFactory.getLogger(Handler.class);
+public class ErrorHandler {
+  Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
 
   @Autowired
   MessageSource messageSource;
@@ -43,71 +45,71 @@ public class Handler {
   Environment environment;
 
   @ExceptionHandler(ApiException.class)
-  protected ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
+  protected ResponseEntity<ErrorResponseDto> handleApiException(ApiException ex) {
     logException(ex);
-    List<Error> errors = ex.getErrorCodes().stream().map(code ->
-            new Error(code, translateErrorCode(code, ex.getParameters(), ex.getMessage()))
+    List<ErrorDto> errorDtos = ex.getErrorCodes().stream().map(code ->
+            new ErrorDto(code, translateErrorCode(code, ex.getParameters(), ex.getMessage()))
     ).collect(Collectors.toList());
 
     return buildResponseEntity(
             ex.getStatus(),
-            new ErrorResponse(clock.instant(), errors, ex.getMessage())
+            new ErrorResponseDto(clock.instant(), errorDtos, ex.getMessage())
     );
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  protected ResponseEntity<ErrorResponse> handledd(HttpMessageNotReadableException ex) {
+  protected ResponseEntity<ErrorResponseDto> handledd(HttpMessageNotReadableException ex) {
     logException(ex);
     String message = ex.getCause().getMessage();
     String code = "json_parse_failed";
-    Error error = new Error(code, translateErrorCode(code, new Object[] { message }, message));
+    ErrorDto errorDto = new ErrorDto(code, translateErrorCode(code, new Object[] { message }, message));
 
     return buildResponseEntity(
             HttpStatus.BAD_REQUEST,
-            new ErrorResponse(clock.instant(), List.of(error), ex.getMessage())
+            new ErrorResponseDto(clock.instant(), List.of(errorDto), ex.getMessage())
     );
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
-  protected ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException ex) {
+  protected ResponseEntity<ErrorResponseDto> handleConstraintViolation(ConstraintViolationException ex) {
     logException(ex);
-    List<Error> errors = new ArrayList<>();
+    List<ErrorDto> errorDtos = new ArrayList<>();
     for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
       String object = violation.getRootBeanClass().getSimpleName().toLowerCase();
       String code = buildErrorCode(object, violation.getPropertyPath().toString(), violation.getMessage());
 
-      errors.add(new Error(code, translateErrorCode(code, violation.getMessage())));
+      errorDtos.add(new ErrorDto(code, translateErrorCode(code, violation.getMessage())));
     }
 
     return buildResponseEntity(
             HttpStatus.BAD_REQUEST,
-            new ErrorResponse(clock.instant(), errors, ex.getMessage())
+            new ErrorResponseDto(clock.instant(), errorDtos, ex.getMessage())
     );
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  protected ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
+  protected ResponseEntity<ErrorResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
     logException(ex);
-    List<Error> errors = ex.getAllErrors().stream().map((e) -> {
+    List<ErrorDto> errorDtos = ex.getAllErrors().stream().map((e) -> {
       FieldError error = (FieldError) e;
       String defaultMessage = error.getDefaultMessage();
       String code = buildErrorCode(error.getObjectName(), error.getField(), defaultMessage);
-      return new Error(code, translateErrorCode(code, defaultMessage));
+      return new ErrorDto(code, translateErrorCode(code, defaultMessage));
     }).collect(Collectors.toList());
 
     return buildResponseEntity(
             HttpStatus.BAD_REQUEST,
-            new ErrorResponse(clock.instant(), errors, ex.getMessage())
+            new ErrorResponseDto(clock.instant(), errorDtos, ex.getMessage())
     );
   }
 
   @ExceptionHandler({Exception.class, DataIntegrityViolationException.class})
-  protected ResponseEntity<ErrorResponse> handleGenericError(Exception ex) {
+  protected ResponseEntity<ErrorResponseDto> handleGenericError(Exception ex) {
     logException(ex);
 
     return buildResponseEntity(
             HttpStatus.INTERNAL_SERVER_ERROR,
-            new ErrorResponse(clock.instant(), List.of(genericError(ex.getMessage())), ex.getMessage())
+            new ErrorResponseDto(clock.instant(), List.of(genericError(ex.getMessage())), ex.getMessage())
     );
   }
 
@@ -115,8 +117,8 @@ public class Handler {
     return objectName + "." + field + "." + message.replace(" ", "_");
   }
 
-  private Error genericError(String message) {
-    return new Error("something_went_wrong", "Something went wrong: " + message);
+  private ErrorDto genericError(String message) {
+    return new ErrorDto("something_went_wrong", "Something went wrong: " + message);
   }
 
   private String translateErrorCode(String code) {
@@ -131,10 +133,10 @@ public class Handler {
     return messageSource.getMessage("errors." + code, parameters, defaultMessage, new Locale(""));
   }
 
-  private ResponseEntity<ErrorResponse> buildResponseEntity(HttpStatus status, ErrorResponse errorResponse) {
+  private ResponseEntity<ErrorResponseDto> buildResponseEntity(HttpStatus status, ErrorResponseDto errorResponseDto) {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    return new ResponseEntity<>(errorResponse, headers, status);
+    return new ResponseEntity<>(errorResponseDto, headers, status);
   }
 
   private void logException(Exception ex) {

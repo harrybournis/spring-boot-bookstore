@@ -1,11 +1,11 @@
-package com.example.bookstore.error;
+package com.example.bookstore.dto.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
 @AllArgsConstructor
-public class Error {
+public class ErrorDto {
   String code;
   String message;
 }

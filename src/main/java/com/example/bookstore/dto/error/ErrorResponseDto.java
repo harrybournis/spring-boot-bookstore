@@ -1,4 +1,4 @@
-package com.example.bookstore.error;
+package com.example.bookstore.dto.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Value
 @AllArgsConstructor
-public class ErrorResponse {
+public class ErrorResponseDto {
   Instant timestamp;
-  List<Error> errors;
+  List<ErrorDto> errorDtos;
   String stacktrace;
 }

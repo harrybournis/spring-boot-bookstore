@@ -1,6 +1,6 @@
 package com.example.bookstore.mapper;
 
-import com.example.bookstore.dto.AuthorDto;
+import com.example.bookstore.dto.model.AuthorDto;
 import com.example.bookstore.model.Author;
 import org.mapstruct.*;
 

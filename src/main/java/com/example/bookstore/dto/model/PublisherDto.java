@@ -1,4 +1,4 @@
-package com.example.bookstore.dto;
+package com.example.bookstore.dto.model;
 
 import lombok.Data;
 

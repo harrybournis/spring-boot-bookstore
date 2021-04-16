@@ -1,4 +1,4 @@
-package com.example.bookstore.error.exception;
+package com.example.bookstore.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

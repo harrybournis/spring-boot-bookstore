@@ -1,7 +1,7 @@
 package com.example.bookstore.service;
 
-import com.example.bookstore.error.exception.ApiException;
-import com.example.bookstore.error.exception.ResourceNotFoundException;
+import com.example.bookstore.exception.ApiException;
+import com.example.bookstore.exception.ResourceNotFoundException;
 
 import java.util.List;
 

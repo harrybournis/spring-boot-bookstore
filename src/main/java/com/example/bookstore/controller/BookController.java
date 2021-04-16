@@ -1,9 +1,9 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.Constants;
-import com.example.bookstore.dto.BookDto;
-import com.example.bookstore.error.exception.ApiException;
-import com.example.bookstore.error.exception.BookNotFoundException;
+import com.example.bookstore.dto.model.BookDto;
+import com.example.bookstore.exception.ApiException;
+import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.service.BookService;

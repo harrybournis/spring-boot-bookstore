@@ -1,4 +1,4 @@
-package com.example.bookstore.error.exception;
+package com.example.bookstore.exception;
 
 public class AuthorNotFoundException extends ResourceNotFoundException {
   public AuthorNotFoundException(Long id) {
