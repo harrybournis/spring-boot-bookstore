@@ -7,7 +7,7 @@ import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.model.Publisher;
 import com.example.bookstore.repository.BookRepository;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Service
-@Value
+@AllArgsConstructor
 public class BookService implements ResourceService<Book> {
   @Autowired
   AuthorService authorService;

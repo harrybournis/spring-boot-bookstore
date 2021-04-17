@@ -4,7 +4,7 @@ import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.AuthorNotFoundException;
 import com.example.bookstore.model.Author;
 import com.example.bookstore.repository.AuthorRepository;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Service
-@Value
+@AllArgsConstructor
 public class AuthorService implements ResourceService<Author> {
   @Autowired
   AuthorRepository authorRepository;

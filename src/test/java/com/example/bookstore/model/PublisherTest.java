@@ -1,7 +1,9 @@
 package com.example.bookstore.model;
 
+import com.example.bookstore.UnitTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -11,7 +13,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PublisherTest {
+class PublisherTest extends UnitTest {
   private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
   private Publisher subject() {
@@ -34,41 +36,47 @@ class PublisherTest {
 
   @Test
   @DisplayName("valid")
-  public void testValid() {
+  void testValid() {
     Publisher publisher = subject();
     Set<ConstraintViolation<Publisher>> violations = validator.validate(publisher);
     assertEquals(0, violations.size());
   }
 
-  @Test
-  @DisplayName("name blank")
-  public void testInvalid1() {
-    Publisher publisher = subject();
-    publisher.setName(null);
-    validate(publisher, "name", "must not be blank");
+  @Nested
+  class Name {
+    @Test
+    @DisplayName("name blank")
+    void testInvalid1() {
+      Publisher publisher = subject();
+      publisher.setName(null);
+      validate(publisher, "name", "must not be blank");
+    }
+
+    @Test
+    @DisplayName("name invalid size")
+    void testInvalid2() {
+      Publisher publisher = subject();
+      publisher.setName(generateRandomString(51));
+      validate(publisher, "name", "size must be between 0 and 50");
+    }
   }
 
-  @Test
-  @DisplayName("name invalid size")
-  public void testInvalid2() {
-    Publisher publisher = subject();
-    publisher.setName(generateRandomString(51));
-    validate(publisher, "name", "size must be between 0 and 50");
-  }
+  @Nested
+  class Address {
+    @Test
+    @DisplayName("address blank")
+    void testInvalid3() {
+      Publisher publisher = subject();
+      publisher.setAddress(null);
+      validate(publisher, "address", "must not be blank");
+    }
 
-  @Test
-  @DisplayName("address blank")
-  public void testInvalid3() {
-    Publisher publisher = subject();
-    publisher.setAddress(null);
-    validate(publisher, "address", "must not be blank");
-  }
-
-  @Test
-  @DisplayName("address invalid size")
-  public void testInvalid4() {
-    Publisher publisher = subject();
-    publisher.setAddress(generateRandomString(101));
-    validate(publisher, "address", "size must be between 0 and 100");
+    @Test
+    @DisplayName("address invalid size")
+    void testInvalid4() {
+      Publisher publisher = subject();
+      publisher.setAddress(generateRandomString(101));
+      validate(publisher, "address", "size must be between 0 and 100");
+    }
   }
 }
