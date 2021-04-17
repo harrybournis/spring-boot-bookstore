@@ -8,7 +8,6 @@ import com.example.bookstore.model.Author;
 import com.example.bookstore.repository.AuthorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -16,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class AuthorServiceTest extends UnitTest {
-  @InjectMocks
   AuthorService authorService;
 
   @Autowired
@@ -55,6 +53,7 @@ class AuthorServiceTest extends UnitTest {
     assertThrows(AuthorNotFoundException.class, () -> subject().find(0L));
   }
 
+  @Test
   @DisplayName("save validates uniqueness and saves record")
   void save() throws ApiException {
     Author author = AuthorFactory.build();

@@ -6,7 +6,9 @@ import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
+import com.example.bookstore.service.AuthorService;
 import com.example.bookstore.service.BookService;
+import com.example.bookstore.service.PublisherService;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,12 @@ import java.util.List;
 public class BookController {
   @Autowired
   BookService bookService;
+
+  @Autowired
+  AuthorService authorService;
+
+  @Autowired
+  PublisherService publisherService;
 
   @Autowired
   BookMapper bookMapper;
@@ -36,8 +44,17 @@ public class BookController {
 
   @PostMapping
   public BookDto.Response create(@RequestBody BookDto.Request bookDto) throws ApiException {
-    Book book = bookService.create(bookDto);
-    return bookMapper.map(book);
+    Book book = bookMapper.map(bookDto);
+
+    if (bookDto.getAuthorId() != null) {
+      book.setAuthor(authorService.find(bookDto.getAuthorId()));
+    }
+
+    if (bookDto.getPublisherId() != null) {
+      book.setPublisher(publisherService.find(bookDto.getPublisherId()));
+    }
+
+    return bookMapper.map(bookService.save(book));
   }
 
   @PatchMapping("/{id}")

@@ -1,11 +1,8 @@
 package com.example.bookstore.service;
 
-import com.example.bookstore.dto.model.BookDto;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
-import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
-import com.example.bookstore.model.Publisher;
 import com.example.bookstore.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BookService implements ResourceService<Book> {
   @Autowired
-  AuthorService authorService;
-
-  @Autowired
-  PublisherService publisherService;
-
-  @Autowired
   BookRepository bookRepository;
-
-  @Autowired
-  BookMapper bookMapper;
 
   public List<Book> getAll() {
     return bookRepository.allVisiblePublishedSortedByPosition();
@@ -36,21 +24,6 @@ public class BookService implements ResourceService<Book> {
 
   public Book find(Long id) throws BookNotFoundException {
     return bookRepository.findByIdEagerLoad(id).orElseThrow(() -> new BookNotFoundException(id));
-  }
-
-  public Book create(BookDto.Request bookDto) throws ApiException {
-    Book book = bookMapper.map(bookDto);
-
-    if (bookDto.getAuthorId() != null) {
-      book.setAuthor(authorService.find(bookDto.getAuthorId()));
-    }
-
-    if (bookDto.getPublisherId() != null) {
-      Publisher publisher = publisherService.find(bookDto.getPublisherId());
-      book.setPublisher(publisher);
-    }
-
-    return save(book);
   }
 
   public Book save(@Valid Book book) throws ApiException {

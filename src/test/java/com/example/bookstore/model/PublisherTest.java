@@ -1,6 +1,7 @@
 package com.example.bookstore.model;
 
 import com.example.bookstore.UnitTest;
+import com.example.bookstore.factories.PublisherFactory;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -17,10 +18,7 @@ class PublisherTest extends UnitTest {
   private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
   private Publisher subject() {
-    return Publisher
-            .builder()
-            .id(1L).name("name").address("address")
-            .build();
+    return PublisherFactory.build();
   }
 
   private void validate(Publisher publisher, String property, String message) {

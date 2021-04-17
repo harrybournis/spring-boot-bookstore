@@ -1,6 +1,7 @@
 package com.example.bookstore.model;
 
 import com.example.bookstore.UnitTest;
+import com.example.bookstore.factories.BookFactory;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.util.Date;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,11 +18,7 @@ class BookTest extends UnitTest {
   private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
   private Book subject() {
-    return Book
-            .builder()
-            .id(1L).isbn("0-5960-6438-1").title("title").description("description").visible(true).releaseDate(new Date())
-            .author(Author.builder().id(1L).build())
-            .build();
+    return BookFactory.build();
   }
 
   private void validate(Book book, String property, String message) {
