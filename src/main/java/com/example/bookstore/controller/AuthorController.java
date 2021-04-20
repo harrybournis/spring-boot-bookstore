@@ -7,7 +7,7 @@ import com.example.bookstore.exception.AuthorNotFoundException;
 import com.example.bookstore.mapper.AuthorMapper;
 import com.example.bookstore.model.Author;
 import com.example.bookstore.service.AuthorService;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(Constants.URL_PATH_PREFIX + "/authors")
-@Value
+@AllArgsConstructor
 public class AuthorController {
   @Autowired
   AuthorService authorService;

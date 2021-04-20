@@ -7,7 +7,7 @@ import com.example.bookstore.exception.PublisherNotFoundException;
 import com.example.bookstore.mapper.PublisherMapper;
 import com.example.bookstore.model.Publisher;
 import com.example.bookstore.service.PublisherService;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(Constants.URL_PATH_PREFIX + "/publishers")
-@Value
+@AllArgsConstructor
 public class PublisherController {
   @Autowired
   PublisherService publisherService;

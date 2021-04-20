@@ -1,11 +1,11 @@
-server:
-  port: 8181
-
 logging:
   level:
-    root: INFO
+    root: WARN
     org:
-      springframework: INFO
+      springframework: WARN
+
+server:
+  port: 8181
 
 management:
   endpoints:
@@ -22,10 +22,10 @@ spring:
       date: yyyy-MM-dd
       time: iso
       date-time: iso
-#  profiles:
-#    active: dev
+    profiles:
+      active: test
   datasource:
-    url: jdbc:postgresql://localhost:5432/bookstore_development?createDatabaseIfNotExist=true
+    url: jdbc:tc:postgresql:11.11-alpine:///
     username: dev
     password: dev
   jpa:
@@ -33,10 +33,10 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC
-    show-sql: true
+    show-sql: false
   properties:
     hibernate:
-      format_sql: true
+      format_sql: false
       dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     user: ${spring.datasource.username}

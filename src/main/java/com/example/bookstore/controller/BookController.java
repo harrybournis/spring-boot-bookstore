@@ -9,7 +9,7 @@ import com.example.bookstore.model.Book;
 import com.example.bookstore.service.AuthorService;
 import com.example.bookstore.service.BookService;
 import com.example.bookstore.service.PublisherService;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(Constants.URL_PATH_PREFIX + "/books")
-@Value
+@AllArgsConstructor
 public class BookController {
   @Autowired
   BookService bookService;
