@@ -14,6 +14,8 @@ management:
         include: "*"
 
 spring:
+  profiles:
+    default: dev
   jackson:
     serialization:
       write-dates-as-timestamps: false
@@ -22,12 +24,10 @@ spring:
       date: yyyy-MM-dd
       time: iso
       date-time: iso
-#  profiles:
-#    active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/bookstore_development?createDatabaseIfNotExist=true
-    username: dev
-    password: dev
+    url:
+    username:
+    password:
   jpa:
     properties:
       hibernate:
@@ -39,11 +39,12 @@ spring:
       format_sql: true
       dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
+    enabled: true
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
     schemas: public
     url: ${spring.datasource.url}
-    locations: filesystem:migration
+    locations: filesystem:src/main/resources/db/migration
 
 mapstruct:
   verbose: true

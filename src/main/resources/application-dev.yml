@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookstore_development?createDatabaseIfNotExist=true
+    username: dev
+    password: dev

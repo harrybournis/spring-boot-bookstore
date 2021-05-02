@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.UnitTest;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.factories.AuthorFactory;
@@ -14,6 +15,7 @@ import com.example.bookstore.repository.PublisherRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
@@ -21,7 +23,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class BookServiceTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+class BookServiceTest extends UnitTest {
   BookService bookService;
 
   @Autowired

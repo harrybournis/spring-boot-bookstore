@@ -8,4 +8,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaAuditing
 public class PersistenceConfig {
+//  @Bean
+//  public PlatformTransactionManager transactionManager(){
+//    JpaTransactionManager transactionManager = new JpaTransactionManager();
+//    return transactionManager;
+//  }
 }
