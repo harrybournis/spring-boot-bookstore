@@ -27,6 +27,8 @@ public class AuthorDto {
   public static class Response extends AuthorDto {
     String firstName;
     String lastName;
+    Date createdAt;
+    Date updatedAt;
   }
 
   @EqualsAndHashCode(callSuper = true)

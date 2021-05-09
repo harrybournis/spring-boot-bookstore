@@ -1,5 +1,6 @@
 package com.example.bookstore.dto.error;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ErrorResponseDto {
   Instant timestamp;
+  @JsonProperty("errors")
   List<ErrorDto> errorDtos;
   String stacktrace;
 }

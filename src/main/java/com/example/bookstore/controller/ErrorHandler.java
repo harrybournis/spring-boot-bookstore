@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Path;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +76,8 @@ public class ErrorHandler {
     logException(ex);
     List<ErrorDto> errorDtos = new ArrayList<>();
     for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-      String object = violation.getRootBeanClass().getSimpleName().toLowerCase();
-      String code = buildErrorCode(object, violation.getPropertyPath().toString(), violation.getMessage());
+      String object = violation.getLeafBean().getClass().getSimpleName().toLowerCase();
+      String code = buildErrorCode(object, getFieldName(violation.getPropertyPath()), violation.getMessage());
 
       errorDtos.add(new ErrorDto(code, translateErrorCode(code, violation.getMessage())));
     }
@@ -85,6 +86,14 @@ public class ErrorHandler {
             HttpStatus.BAD_REQUEST,
             new ErrorResponseDto(clock.instant(), errorDtos, ex.getMessage())
     );
+  }
+
+  private String getFieldName(Path propertyPath) {
+    String fieldName = "";
+    for (Path.Node node : propertyPath) {
+      fieldName = node.getName();
+    }
+    return fieldName;
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
