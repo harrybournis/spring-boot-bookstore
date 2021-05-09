@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import javax.validation.Validator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -22,8 +24,11 @@ class AuthorServiceTest extends UnitTest {
   @Autowired
   AuthorRepository authorRepository;
 
+  @Autowired
+  Validator validator;
+
   AuthorService subject() {
-    return new AuthorService(authorRepository);
+    return new AuthorService(authorRepository, validator);
   }
 
   @Test
