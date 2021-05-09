@@ -11,12 +11,12 @@ public interface PublisherMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createdAt", ignore = true)
   @Mapping(target = "updatedAt", ignore = true)
-  Publisher map(PublisherDto publisherDto);
+  Publisher map(PublisherDto.Request publisherDto);
 
-  PublisherDto map(Publisher publisher);
+  PublisherDto.Response map(Publisher publisher);
 
-  List<PublisherDto> map(List<Publisher> publishers);
+  List<PublisherDto.Response> map(List<Publisher> publishers);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Publisher updateFromDto(@MappingTarget Publisher publisher, PublisherDto publisherDto);
+  Publisher updateFromDto(@MappingTarget Publisher publisher, PublisherDto.Request publisherDto);
 }

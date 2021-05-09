@@ -25,24 +25,27 @@ public class PublisherController {
   PublisherMapper publisherMapper;
 
   @GetMapping
-  public List<PublisherDto> getAll() {
+  public List<PublisherDto.Response> getAll() {
     return publisherMapper.map(publisherService.getAll());
   }
 
   @GetMapping("/{id}")
-  public PublisherDto find(@PathVariable Long id) throws PublisherNotFoundException {
+  public PublisherDto.Response find(@PathVariable Long id) throws PublisherNotFoundException {
     Publisher publisher = findPublisher(id);
     return publisherMapper.map(publisher);
   }
 
   @PostMapping
-  public PublisherDto create(@RequestBody PublisherDto publisherDto) throws ApiException {
+  public PublisherDto.Response create(@RequestBody PublisherDto.Request publisherDto) throws ApiException {
     Publisher publisher = publisherService.save(publisherMapper.map(publisherDto));
     return publisherMapper.map(publisher);
   }
 
   @PatchMapping("/{id}")
-  public PublisherDto update(@PathVariable Long id, @RequestBody PublisherDto publisherDto) throws ApiException {
+  public PublisherDto.Response update(
+          @PathVariable Long id,
+          @RequestBody PublisherDto.Request publisherDto
+  ) throws ApiException {
     Publisher publisher = findPublisher(id);
     publisher = publisherService.save(publisherMapper.updateFromDto(publisher, publisherDto));
     return publisherMapper.map(publisher);
