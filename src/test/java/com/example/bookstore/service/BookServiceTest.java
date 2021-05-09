@@ -1,17 +1,18 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.UnitTest;
+import com.example.bookstore.entity.Author;
+import com.example.bookstore.entity.Book;
+import com.example.bookstore.entity.Publisher;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.factories.AuthorFactory;
 import com.example.bookstore.factories.BookFactory;
 import com.example.bookstore.factories.PublisherFactory;
-import com.example.bookstore.entity.Author;
-import com.example.bookstore.entity.Book;
-import com.example.bookstore.entity.Publisher;
 import com.example.bookstore.repository.AuthorRepository;
 import com.example.bookstore.repository.BookRepository;
 import com.example.bookstore.repository.PublisherRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,13 @@ class BookServiceTest extends UnitTest {
 
   @Autowired
   PublisherRepository publisherRepository;
+
+  @BeforeEach
+  void clearDb() {
+    bookRepository.deleteAll();
+    authorRepository.deleteAll();
+    publisherRepository.deleteAll();
+  }
 
   BookService subject() {
     return new BookService(bookRepository);
