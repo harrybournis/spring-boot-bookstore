@@ -1,7 +1,7 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.factories.AuthorFactory;
-import com.example.bookstore.model.Author;
+import com.example.bookstore.entity.Author;
 import com.example.bookstore.repository.AuthorRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

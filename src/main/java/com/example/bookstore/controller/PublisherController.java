@@ -1,11 +1,11 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.Constants;
-import com.example.bookstore.dto.model.PublisherDto;
+import com.example.bookstore.dto.entity.PublisherDto;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.PublisherNotFoundException;
 import com.example.bookstore.mapper.PublisherMapper;
-import com.example.bookstore.model.Publisher;
+import com.example.bookstore.entity.Publisher;
 import com.example.bookstore.service.PublisherService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

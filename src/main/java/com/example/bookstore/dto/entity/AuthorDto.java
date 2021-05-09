@@ -1,4 +1,4 @@
-package com.example.bookstore.dto.model;
+package com.example.bookstore.dto.entity;
 
 import com.example.bookstore.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,11 +1,11 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.Constants;
-import com.example.bookstore.dto.model.AuthorDto;
+import com.example.bookstore.dto.entity.AuthorDto;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.AuthorNotFoundException;
 import com.example.bookstore.mapper.AuthorMapper;
-import com.example.bookstore.model.Author;
+import com.example.bookstore.entity.Author;
 import com.example.bookstore.service.AuthorService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

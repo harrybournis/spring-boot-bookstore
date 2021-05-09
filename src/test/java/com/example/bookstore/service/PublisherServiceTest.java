@@ -4,7 +4,7 @@ import com.example.bookstore.UnitTest;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.PublisherNotFoundException;
 import com.example.bookstore.factories.PublisherFactory;
-import com.example.bookstore.model.Publisher;
+import com.example.bookstore.entity.Publisher;
 import com.example.bookstore.repository.PublisherRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

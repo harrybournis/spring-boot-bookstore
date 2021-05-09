@@ -1,7 +1,7 @@
 package com.example.bookstore.mapper;
 
-import com.example.bookstore.dto.model.PublisherDto;
-import com.example.bookstore.model.Publisher;
+import com.example.bookstore.dto.entity.PublisherDto;
+import com.example.bookstore.entity.Publisher;
 import org.mapstruct.*;
 
 import java.util.List;

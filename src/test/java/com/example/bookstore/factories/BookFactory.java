@@ -1,6 +1,6 @@
 package com.example.bookstore.factories;
 
-import com.example.bookstore.model.Book;
+import com.example.bookstore.entity.Book;
 
 import java.util.Date;
 

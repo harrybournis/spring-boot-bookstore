@@ -2,7 +2,7 @@ package com.example.bookstore.service;
 
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.PublisherNotFoundException;
-import com.example.bookstore.model.Publisher;
+import com.example.bookstore.entity.Publisher;
 import com.example.bookstore.repository.PublisherRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PublisherService implements ResourceService<Publisher> {
+public class PublisherService implements EntityService<Publisher> {
   @Autowired
   PublisherRepository publisherRepository;
 

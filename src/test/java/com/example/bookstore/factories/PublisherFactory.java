@@ -1,6 +1,6 @@
 package com.example.bookstore.factories;
 
-import com.example.bookstore.model.Publisher;
+import com.example.bookstore.entity.Publisher;
 
 public class PublisherFactory {
   public static Publisher.PublisherBuilder builder() {

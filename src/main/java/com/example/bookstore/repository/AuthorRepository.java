@@ -1,6 +1,6 @@
 package com.example.bookstore.repository;
 
-import com.example.bookstore.model.Author;
+import com.example.bookstore.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
