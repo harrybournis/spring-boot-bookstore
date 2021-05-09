@@ -53,14 +53,14 @@ class AuthorTest extends UnitTest {
     @DisplayName("firstName empty string")
     void testInvalidEmptyString() {
       Author author = subject().firstName("").build();
-      validate(author, "firstName", "size must be between 1 and 50");
+      validate(author, "firstName", "must not be blank");
     }
 
     @Test
     @DisplayName("firstName invalid size")
     void testInvalid2() {
       Author author = subject().firstName(generateRandomString(51)).build();
-      validate(author, "firstName", "size must be between 1 and 50");
+      validate(author, "firstName", "size must be between 0 and 50");
     }
   }
 
@@ -77,7 +77,7 @@ class AuthorTest extends UnitTest {
     @DisplayName("lastName invalid size")
     void testInvalid4() {
       Author author = subject().lastName(generateRandomString(51)).build();
-      validate(author, "lastName", "size must be between 1 and 50");
+      validate(author, "lastName", "size must be between 0 and 50");
     }
   }
 
@@ -94,7 +94,7 @@ class AuthorTest extends UnitTest {
     @DisplayName("email invalid size")
     void testInvalid6() {
       Author author = subject().email(generateRandomString(51) + "@gmail.com").build();
-      validate(author, "email", "size must be between 1 and 50");
+      validate(author, "email", "size must be between 0 and 50");
     }
 
     @Test

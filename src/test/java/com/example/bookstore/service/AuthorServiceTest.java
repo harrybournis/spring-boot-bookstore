@@ -6,13 +6,12 @@ import com.example.bookstore.exception.AuthorNotFoundException;
 import com.example.bookstore.factories.AuthorFactory;
 import com.example.bookstore.model.Author;
 import com.example.bookstore.repository.AuthorRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import javax.validation.Validator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,17 +23,18 @@ class AuthorServiceTest extends UnitTest {
   @Autowired
   AuthorRepository authorRepository;
 
-  @Autowired
-  Validator validator;
-
   AuthorService subject() {
-    return new AuthorService(authorRepository, validator);
+    return new AuthorService(authorRepository);
+  }
+
+  @BeforeEach
+  void clearDb() {
+    authorRepository.deleteAll();
   }
 
   @Test
   @DisplayName("getAll with no records")
   void getAllNoRecords() {
-    authorRepository.deleteAll();
     assertTrue(subject().getAll().isEmpty());
   }
 
