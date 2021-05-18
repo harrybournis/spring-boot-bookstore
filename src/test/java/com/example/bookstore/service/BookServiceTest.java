@@ -49,7 +49,8 @@ class BookServiceTest extends UnitTest {
   }
 
   Book buildBook() {
-    Book book = BookFactory.build();
+    Publisher publisher = PublisherFactory.build();
+    Book book = BookFactory.builder().publisher(publisher).build();
     authorRepository.save(book.getAuthor());
     publisherRepository.save(book.getPublisher());
     return book;
