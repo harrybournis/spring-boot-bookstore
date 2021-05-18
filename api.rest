@@ -7,6 +7,12 @@ Content-Type: application/json
 # actuator
 GET :domain/actuator/mappings
 
+# swager specification
+GET :domain/v3/api-docs
+
+# swagger ui
+GET :domain/swagger-ui/
+
 ### Authors
 
 # GET /authors
