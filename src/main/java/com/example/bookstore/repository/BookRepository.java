@@ -11,13 +11,17 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-  String eagerLoadQuery = "join fetch b.author author join fetch b.publisher publisher";
+  String eagerLoadQuery = "join fetch b.author author left join fetch b.publisher publisher";
 
-  @Query("select b from Book b " + eagerLoadQuery + " order by author.lastName ASC, b.position ASC")
+  @Query("select b from Book b " +
+          "join fetch b.author author join fetch b.publisher publisher " +
+          "order by author.lastName ASC, b.position ASC")
   List<Book> allVisiblePublishedSortedByPosition();
 
   @Query("select b from Book b " + eagerLoadQuery + " where b.id = :id")
   Optional<Book> findByIdEagerLoad(@Param("id") Long id);
+
+  Optional<Book> findByIsbn(String isbn);
 
   @Query("SELECT CASE WHEN COUNT(b) > 0 THEN false ELSE true END " +
           "FROM Book b " +
