@@ -1,8 +1,8 @@
 logging:
   level:
-    root: INFO
+    root: ERROR
     org:
-      springframework: INFO
+      springframework: ERROR
 
 server:
   port: 8181
@@ -28,9 +28,6 @@ spring:
     url: jdbc:tc:postgresql:11.11-alpine:///bookstore_test?TC_DAEMON=true
     username: test
     password: test
-#    url: jdbc:postgresql://localhost:5432/bookstore_test?createDatabaseIfNotExist=true
-#    username: dev
-#    password: dev
   jpa:
     properties:
       hibernate:
