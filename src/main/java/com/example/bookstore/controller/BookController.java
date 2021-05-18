@@ -2,10 +2,11 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.Constants;
 import com.example.bookstore.dto.entity.BookDto;
+import com.example.bookstore.entity.Book;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
+import com.example.bookstore.exception.ResourceNotFoundException;
 import com.example.bookstore.mapper.BookMapper;
-import com.example.bookstore.entity.Book;
 import com.example.bookstore.service.AuthorService;
 import com.example.bookstore.service.BookService;
 import com.example.bookstore.service.PublisherService;
@@ -45,14 +46,7 @@ public class BookController {
   @PostMapping
   public BookDto.Response create(@RequestBody BookDto.Request bookDto) throws ApiException {
     Book book = bookMapper.map(bookDto);
-
-    if (bookDto.getAuthorId() != null) {
-      book.setAuthor(authorService.find(bookDto.getAuthorId()));
-    }
-
-    if (bookDto.getPublisherId() != null) {
-      book.setPublisher(publisherService.find(bookDto.getPublisherId()));
-    }
+    setAssociationsIfTheyExist(bookDto, book);
 
     return bookMapper.map(bookService.save(book));
   }
@@ -61,7 +55,10 @@ public class BookController {
   public BookDto.Response update(@PathVariable("id") Long id, @RequestBody BookDto.Request bookDto)
           throws ApiException {
     Book book = bookService.find(id);
-    book = bookService.save(bookMapper.updateFromDto(book, bookDto));
+    Book updatedBook = bookMapper.updateFromDto(book, bookDto);
+    setAssociationsIfTheyExist(bookDto, updatedBook);
+
+    book = bookService.save(updatedBook);
     return bookMapper.map(book);
   }
 
@@ -69,5 +66,15 @@ public class BookController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable("id") Long id) throws BookNotFoundException {
     bookService.delete(bookService.find(id));
+  }
+
+  private void setAssociationsIfTheyExist(BookDto.Request bookDto, Book book) throws ResourceNotFoundException {
+    if (bookDto.getAuthorId() != null) {
+      book.setAuthor(authorService.find(bookDto.getAuthorId()));
+    }
+
+    if (bookDto.getPublisherId() != null) {
+      book.setPublisher(publisherService.find(bookDto.getPublisherId()));
+    }
   }
 }
