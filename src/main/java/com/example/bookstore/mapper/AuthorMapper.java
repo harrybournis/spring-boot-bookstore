@@ -15,6 +15,8 @@ public abstract class AuthorMapper {
 
   public abstract List<AuthorDto.Response> map(List<Author> authors);
 
+  public abstract AuthorDto.ResponseNested mapNested(Author author);
+
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   public abstract Author updateFromDto(@MappingTarget Author author, AuthorDto.Request authorDto);
 }

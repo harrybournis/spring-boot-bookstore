@@ -29,13 +29,14 @@ public class BookDto {
   @Data
   public static class Response extends BookDto {
     AuthorDto.ResponseNested author;
-    PublisherDto publisher;
+    PublisherDto.ResponseNested publisher;
   }
 
   @EqualsAndHashCode(callSuper = true)
   @Data
-  public static class ResponseList extends Response {
+  public static class ResponseList extends BookDto {
     private static int descriptionLength = 100;
+    AuthorDto.ResponseNested author;
 
     @Override
     public String getDescription() {

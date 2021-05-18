@@ -17,6 +17,8 @@ public interface PublisherMapper {
 
   List<PublisherDto.Response> map(List<Publisher> publishers);
 
+  PublisherDto.ResponseNested mapNested(Publisher publisher);
+
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   Publisher updateFromDto(@MappingTarget Publisher publisher, PublisherDto.Request publisherDto);
 }
