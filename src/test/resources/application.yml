@@ -44,7 +44,7 @@ spring:
     password: ${spring.datasource.password}
     schemas: public
     url: ${spring.datasource.url}
-    locations: filesystem:src/main/resources/db/migration
+    locations: classpath:db/migration
 
 mapstruct:
   verbose: true
