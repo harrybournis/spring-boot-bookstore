@@ -1,0 +1,24 @@
+version: '3'
+services:
+  bookstore:
+    build: .
+    ports:
+      - "8181:8181"
+    environment:
+      - DB_URL=jdbc:postgresql://postgres:5432/bookstore_development?createDatabaseIfNotExist=true
+      - DB_USERNAME=dev
+      - DB_PASSWORD=dev
+
+  postgres:
+    image: "postgres:11.11-alpine"
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=dev
+      - POSTGRES_DB=bookstore_development
+
+volumes:
+  database-data:
