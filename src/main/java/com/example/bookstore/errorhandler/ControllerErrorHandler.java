@@ -1,4 +1,4 @@
-package com.example.bookstore.controller;
+package com.example.bookstore.errorhandler;
 
 import com.example.bookstore.dto.error.ErrorDto;
 import com.example.bookstore.dto.error.ErrorResponseDto;
@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 @AllArgsConstructor
 @Value
-public class ErrorHandler {
-  Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
+public class ControllerErrorHandler {
+  Logger logger = LoggerFactory.getLogger(ControllerErrorHandler.class);
 
   @Autowired
   MessageSource messageSource;

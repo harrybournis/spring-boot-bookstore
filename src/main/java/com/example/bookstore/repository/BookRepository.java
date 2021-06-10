@@ -22,9 +22,4 @@ public interface BookRepository extends JpaRepository<Book, Long> {
   Optional<Book> findByIdEagerLoad(@Param("id") Long id);
 
   Optional<Book> findByIsbn(String isbn);
-
-  @Query("SELECT CASE WHEN COUNT(b) > 0 THEN false ELSE true END " +
-          "FROM Book b " +
-          "WHERE b.isbn = :isbn AND b.id != :id")
-  boolean isIsbnUnique(@Param("isbn") String isbn, @Param("id") Long id);
 }

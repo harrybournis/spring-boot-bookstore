@@ -4,6 +4,7 @@ import com.example.bookstore.UnitTest;
 import com.example.bookstore.entity.Author;
 import com.example.bookstore.entity.Book;
 import com.example.bookstore.entity.Publisher;
+import com.example.bookstore.errorhandler.PostgresDbErrorHandler;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.factories.AuthorFactory;
@@ -45,7 +46,7 @@ class BookServiceTest extends UnitTest {
   }
 
   BookService subject() {
-    return new BookService(bookRepository);
+    return new BookService(bookRepository, new PostgresDbErrorHandler());
   }
 
   Book buildBook() {

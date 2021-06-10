@@ -1,10 +1,14 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.entity.Book;
+import com.example.bookstore.errorhandler.DbErrorHandler;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.BookNotFoundException;
-import com.example.bookstore.entity.Book;
+import com.example.bookstore.exception.DbException;
+import com.example.bookstore.exception.UniqueConstraintException;
 import com.example.bookstore.repository.BookRepository;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,9 @@ public class BookService implements EntityService<Book> {
   @Autowired
   BookRepository bookRepository;
 
+  @Autowired
+  DbErrorHandler dbErrorHandler;
+
   public List<Book> getAll() {
     return bookRepository.allVisiblePublishedSortedByPosition();
   }
@@ -29,8 +36,18 @@ public class BookService implements EntityService<Book> {
   }
 
   public Book save(@Valid Book book) throws ApiException {
-    validateIsbnUniqueness(book.getIsbn(), book.getId());
-    return bookRepository.save(book);
+    try {
+      return dbErrorHandler.handleSaveExceptions(() ->
+              bookRepository.save(book)
+      );
+    } catch (UniqueConstraintException e) {
+      if (isIsbnError(e)) {
+        throw new ApiException("book.isbn.must_be_unique", HttpStatus.BAD_REQUEST);
+      }
+      throw e.toApiException();
+    } catch (DbException e) {
+      throw e.toApiException();
+    }
   }
 
   @Override
@@ -38,9 +55,7 @@ public class BookService implements EntityService<Book> {
     bookRepository.delete(book);
   }
 
-  private void validateIsbnUniqueness(String isbn, Long id) throws ApiException {
-    if (!bookRepository.isIsbnUnique(isbn, id != null ? id : 0L)) {
-      throw new ApiException("book.isbn.must_be_unique", HttpStatus.BAD_REQUEST);
-    }
+  private boolean isIsbnError(UniqueConstraintException e) {
+    return StringUtils.contains(e.getExceptionMessage(), "isbn");
   }
 }

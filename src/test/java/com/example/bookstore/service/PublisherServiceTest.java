@@ -2,6 +2,7 @@ package com.example.bookstore.service;
 
 import com.example.bookstore.UnitTest;
 import com.example.bookstore.entity.Publisher;
+import com.example.bookstore.errorhandler.PostgresDbErrorHandler;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.PublisherNotFoundException;
 import com.example.bookstore.factories.PublisherFactory;
@@ -29,7 +30,7 @@ class PublisherServiceTest extends UnitTest {
   }
 
   PublisherService subject() {
-    return new PublisherService((publisherRepository));
+    return new PublisherService(publisherRepository, new PostgresDbErrorHandler());
   }
 
   @Test

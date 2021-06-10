@@ -11,4 +11,5 @@ public interface EntityService<T> {
   T find(Long id) throws ResourceNotFoundException;
   T save(@Valid T resource) throws ApiException;
   void delete(T resource);
+
 }

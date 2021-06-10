@@ -1,10 +1,11 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.UnitTest;
+import com.example.bookstore.entity.Author;
+import com.example.bookstore.errorhandler.PostgresDbErrorHandler;
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.AuthorNotFoundException;
 import com.example.bookstore.factories.AuthorFactory;
-import com.example.bookstore.entity.Author;
 import com.example.bookstore.repository.AuthorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ class AuthorServiceTest extends UnitTest {
   AuthorRepository authorRepository;
 
   AuthorService subject() {
-    return new AuthorService(authorRepository);
+    return new AuthorService(authorRepository, new PostgresDbErrorHandler());
   }
 
   @BeforeEach
