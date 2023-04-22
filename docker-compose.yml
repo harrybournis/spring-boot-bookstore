@@ -1,18 +1,26 @@
-version: '3'
+version: '3.9'
 services:
   bookstore:
     build: .
+    container_name: spring-boot-bookstore
+    depends_on:
+      - postgres
+    profiles:
+      - app
     ports:
       - "8181:8181"
     environment:
-      - DB_URL=jdbc:postgresql://postgres:5432/bookstore_development?createDatabaseIfNotExist=true
+      - spring_profiles_active=prod
+      - DB_URL=jdbc:postgresql://postgres:5432/bookstore_dev?createDatabaseIfNotExist=true
       - DB_USERNAME=dev
       - DB_PASSWORD=dev
 
   postgres:
     image: "postgres:11.11-alpine"
+    container_name: spring-boot-bookstore-postgres
     volumes:
       - database-data:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5431:5432"
     environment:

@@ -1,18 +1,20 @@
 package com.example.bookstore.entity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Set;
+
 import com.example.bookstore.UnitTest;
 import com.example.bookstore.factories.PublisherFactory;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 
 class PublisherTest extends UnitTest {
   private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -47,7 +49,7 @@ class PublisherTest extends UnitTest {
     void testInvalid1() {
       Publisher publisher = subject();
       publisher.setName(null);
-      validate(publisher, "name", "must not be blank");
+      validate(publisher, "name", "may not be empty");
     }
 
     @Test
@@ -66,7 +68,7 @@ class PublisherTest extends UnitTest {
     void testInvalid3() {
       Publisher publisher = subject();
       publisher.setAddress(null);
-      validate(publisher, "address", "must not be blank");
+      validate(publisher, "address", "may not be empty");
     }
 
     @Test

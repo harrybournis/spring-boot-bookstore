@@ -1,18 +1,20 @@
 package com.example.bookstore.entity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Set;
+
 import com.example.bookstore.UnitTest;
 import com.example.bookstore.factories.AuthorFactory;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 
 class AuthorTest extends UnitTest {
   private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -46,14 +48,14 @@ class AuthorTest extends UnitTest {
     @DisplayName("firstName null")
     void testInvalid1() {
       Author author = subject().firstName(null).build();
-      validate(author, "firstName", "must not be blank");
+      validate(author, "firstName", "may not be empty");
     }
 
     @Test
     @DisplayName("firstName empty string")
     void testInvalidEmptyString() {
       Author author = subject().firstName("").build();
-      validate(author, "firstName", "must not be blank");
+      validate(author, "firstName", "may not be empty");
     }
 
     @Test
@@ -70,7 +72,7 @@ class AuthorTest extends UnitTest {
     @DisplayName("lastName blank")
     void testInvalid3() {
       Author author = subject().lastName(null).build();
-      validate(author, "lastName", "must not be blank");
+      validate(author, "lastName", "may not be empty");
     }
 
     @Test
@@ -87,7 +89,7 @@ class AuthorTest extends UnitTest {
     @DisplayName("email blank")
     void testInvalid5() {
       Author author = subject().email(null).build();
-      validate(author, "email", "must not be blank");
+      validate(author, "email", "may not be empty");
     }
 
     @Test

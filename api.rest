@@ -20,7 +20,7 @@ GET :url/authors
 :headers
 
 # GET /authors/:id
-:id = 2
+:id = 1
 GET :url/authors/:id
 :headers
 
@@ -98,7 +98,7 @@ POST :url/books
 "title": "Book without publisher",
 "description": "dkdlak kldsalk jfdlkjdlk jkldjld k",
 "isbn": "0-7901-7493-6",
-"authorId": 3
+"authorId": 1
 }
 
 # PATCH /books/id

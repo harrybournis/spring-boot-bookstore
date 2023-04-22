@@ -1,10 +1,11 @@
 package com.example.bookstore.service;
 
+import java.util.List;
+
 import com.example.bookstore.exception.ApiException;
 import com.example.bookstore.exception.ResourceNotFoundException;
 
-import javax.validation.Valid;
-import java.util.List;
+import jakarta.validation.Valid;
 
 public interface EntityService<T> {
   List<T> getAll();

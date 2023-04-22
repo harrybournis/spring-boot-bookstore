@@ -1,0 +1,33 @@
+* Spring Boot Bookstore
+This is a simple REST API of a mock bookstore built with spring boot.
+
+** Requirements
+- Docker
+- Java 17
+** Run
+*** Docker
+#+begin_src sh
+docker-compose --profile app up
+#+end_src
+
+*** Locally
+Start service dependencies (database)
+
+#+begin_src sh
+docker-compose up
+#+end_src
+
+Install project dependencies
+
+#+begin_src sh
+mvn install
+#+end_src
+
+Start application
+
+#+begin_src sh
+mvn spring-boot:run
+#+end_src
+
+** Deploy
+You must set the ~spring_profiles_active~ ENV variable to the appropriate stage (e.g. prod)

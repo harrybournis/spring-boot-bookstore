@@ -195,8 +195,8 @@ public class BookControllerTest {
               .then()
               .statusCode(400)
               .body("timestamp", notNullValue())
-              .body("errors.code", hasItem("book.title.must_not_be_blank"))
-              .body("errors.message", hasItem("must not be blank"));
+              .body("errors.code", hasItem("book.title.may_not_be_empty"))
+          .body("errors.message", hasItem("may not be empty"));
 
       assert(bookRepository.findByIsbn(params.get("isbn")).isEmpty());
     }
@@ -294,8 +294,8 @@ public class BookControllerTest {
               .then()
               .statusCode(400)
               .body("timestamp", notNullValue())
-              .body("errors.code", hasItem("book.title.must_not_be_blank"))
-              .body("errors.message", hasItem("must not be blank"));
+              .body("errors.code", hasItem("book.title.may_not_be_empty"))
+          .body("errors.message", hasItem("may not be empty"));
     }
 
     @Test

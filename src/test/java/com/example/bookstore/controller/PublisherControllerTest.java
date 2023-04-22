@@ -130,8 +130,8 @@ public class PublisherControllerTest {
               .then()
               .statusCode(400)
               .body("timestamp", notNullValue())
-              .body("errors.code", hasItem("publisher.name.must_not_be_blank"))
-              .body("errors.message", hasItem("must not be blank"));
+              .body("errors.code", hasItem("publisher.name.may_not_be_empty"))
+          .body("errors.message", hasItem("may not be empty"));
 
       assertThat(publisherRepository.findByName(params.get("name")).isPresent(), equalTo(false));
     }
@@ -200,8 +200,8 @@ public class PublisherControllerTest {
               .then()
               .statusCode(400)
               .body("timestamp", notNullValue())
-              .body("errors.code", hasItem("publisher.address.must_not_be_blank"))
-              .body("errors.message", hasItem("must not be blank"));
+              .body("errors.code", hasItem("publisher.address.may_not_be_empty"))
+          .body("errors.message", hasItem("may not be empty"));
     }
 
     @Test

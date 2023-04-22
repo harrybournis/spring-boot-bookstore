@@ -134,8 +134,8 @@ public class AuthorControllerTest {
               .then()
               .statusCode(400)
               .body("timestamp", notNullValue())
-              .body("errors.code", hasItem("author.email.must_not_be_blank"))
-              .body("errors.message", hasItem("must not be blank"));
+              .body("errors.code", hasItem("author.email.may_not_be_empty"))
+          .body("errors.message", hasItem("may not be empty"));
 
       assertThat(authorRepository.findByEmail(params.get("email")).isPresent(), equalTo(false));
     }
@@ -208,8 +208,8 @@ public class AuthorControllerTest {
               .then()
               .statusCode(400)
               .body("timestamp", notNullValue())
-              .body("errors.code", hasItem("author.firstName.must_not_be_blank"))
-              .body("errors.message", hasItem("must not be blank"));
+              .body("errors.code", hasItem("author.firstName.may_not_be_empty"))
+          .body("errors.message", hasItem("may not be empty"));
     }
 
     @Test
